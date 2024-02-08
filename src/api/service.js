@@ -1,7 +1,7 @@
 function getResultsObject(date) {
     return {
         unix: date.getTime(),
-        date: date.toUTCString()
+        utc: date.toUTCString()
     }
 }
 

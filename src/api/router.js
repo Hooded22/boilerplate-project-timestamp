@@ -1,5 +1,6 @@
 const {Router} = require("express")
 const {getResultsObject} = require("./service");
+const isDateValid = require("../../utils/isDateValid");
 
 const apiRouter = Router();
 
@@ -20,12 +21,15 @@ apiRouter.get('/:date?', (req, res) => {
         const dateNumber = parseInt(date)
         const jsDate = isNaN(date) ? new Date(date) : new Date(dateNumber)
 
+        if(!isDateValid(jsDate)) {
+            throw new Error()
+        }
+
         const result = getResultsObject(jsDate)
 
         return res.json(result)
 
     } catch (e) {
-        console.log(e)
         return res.status(400).json({ error : "Invalid Date" })
     }
 })
